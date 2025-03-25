@@ -9,9 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,9 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.zalerie.viewmodel.AuthViewModel
 import com.zalerie.ui.bottomNavigation.navigateAndClear
 import com.zalerie.ui.screens.Screens
+import com.zalerie.viewmodel.AuthViewModel
 import com.zalerie.viewmodel.UserViewModel
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel

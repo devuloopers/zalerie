@@ -1,6 +1,7 @@
 package com.zalerie.di
 
 import android.app.Application
+import com.zalerie.appPermissions.permissionModule
 import com.zalerie.ui.loadingBar.loadingBarModule
 import com.zalerie.ui.snackbar.snackbarModule
 import org.koin.android.ext.koin.androidContext
@@ -12,6 +13,7 @@ class RootDI : Application() {
         startKoin {
             androidContext(this@RootDI)
             modules(
+                permissionModule,
                 firebaseAuthModule,
                 snackbarModule,
                 userFirebaseModule,

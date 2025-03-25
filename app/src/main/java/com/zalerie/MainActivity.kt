@@ -3,14 +3,12 @@ package com.zalerie
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -20,12 +18,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.zalerie.appPermissions.PermissionState
+import com.zalerie.appPermissions.PermissionUtils
+import com.zalerie.appPermissions.PermissionViewModel
 import com.zalerie.ui.bottomNavigation.NavHostController
 import com.zalerie.ui.loadingBar.LoadingBar
-import com.zalerie.ui.loadingBar.LoadingBarState
-import com.zalerie.ui.screens.login.LoginScreen
 import com.zalerie.ui.snackbar.CustomSnackbar
-import com.zalerie.ui.snackbar.SnackbarState
+import org.koin.android.ext.android.inject
 import org.koin.compose.koinInject
 
 class MainActivity : ComponentActivity() {
@@ -38,9 +37,11 @@ class MainActivity : ComponentActivity() {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
                 bottomBar = {},
-                snackbarHost = { SnackbarHost(hostState = snackbarHostState){
-                    CustomSnackbar(snackbarData = it)
-                } }
+                snackbarHost = {
+                    SnackbarHost(hostState = snackbarHostState) {
+                        CustomSnackbar(snackbarData = it)
+                    }
+                }
             ) { innerPadding ->
                 Box(
                     modifier = Modifier

@@ -30,7 +30,7 @@ fun NavHostController(modifier: Modifier, navHostController: NavHostController) 
         modifier = modifier
             .fillMaxSize(),
         navController = navHostController,
-        startDestination = Screens.SplashScreen,
+        startDestination = Screens.HomeScreen,
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Start,
