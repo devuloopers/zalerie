@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "770655233610",
+    "project_id": "zallery",
+    "storage_bucket": "zallery.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770655233610:android:a067b187f0748c5d4228b3",
+        "android_client_info": {
+          "package_name": "com.zalerie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUERbcucxb3SDglOYM8TzuspayPhpFWAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
