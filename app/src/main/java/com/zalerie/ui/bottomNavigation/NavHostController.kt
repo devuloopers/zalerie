@@ -1,20 +1,14 @@
 package com.zalerie.ui.bottomNavigation
 
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.zalerie.ui.loadingBar.LoadingBarState
 import com.zalerie.ui.screens.Screens
 import com.zalerie.ui.screens.home.HomeScreen
 import com.zalerie.ui.screens.login.AuthScreen
@@ -22,7 +16,6 @@ import com.zalerie.ui.screens.login.LoginScreen
 import com.zalerie.ui.screens.login.SignUpScreen
 import com.zalerie.ui.screens.splash.SplashScreen
 import com.zalerie.ui.screens.userDetails.UserDetails
-import org.koin.compose.koinInject
 
 @Composable
 fun NavHostController(modifier: Modifier, navHostController: NavHostController) {
@@ -30,7 +23,7 @@ fun NavHostController(modifier: Modifier, navHostController: NavHostController) 
         modifier = modifier
             .fillMaxSize(),
         navController = navHostController,
-        startDestination = Screens.HomeScreen,
+        startDestination = Screens.SplashScreen,
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Start,

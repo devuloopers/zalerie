@@ -18,13 +18,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.zalerie.appPermissions.PermissionState
-import com.zalerie.appPermissions.PermissionUtils
-import com.zalerie.appPermissions.PermissionViewModel
 import com.zalerie.ui.bottomNavigation.NavHostController
 import com.zalerie.ui.loadingBar.LoadingBar
 import com.zalerie.ui.snackbar.CustomSnackbar
-import org.koin.android.ext.android.inject
 import org.koin.compose.koinInject
 
 class MainActivity : ComponentActivity() {

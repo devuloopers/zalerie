@@ -18,13 +18,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.zalerie.viewmodel.PermissionsViewModel
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun PermissionPermanentlyDeniedContent() {
     val context = LocalContext.current
-    val permissionViewModel: PermissionViewModel = koinViewModel()
+    val permissionViewModel: PermissionsViewModel = koinViewModel()
 
     LaunchedEffect(Unit) {
         while (true) {

@@ -1,14 +1,15 @@
-package com.zalerie.appPermissions
+package com.zalerie.viewmodel
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zalerie.appPermissions.PermissionUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class PermissionViewModel(
+class PermissionsViewModel(
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
     private val _permissionState = MutableStateFlow<PermissionState>(PermissionState.Idle)
