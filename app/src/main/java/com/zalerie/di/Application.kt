@@ -18,7 +18,9 @@ class RootDI : Application() {
                 snackbarModule,
                 userFirebaseModule,
                 loadingBarModule,
-                firebaseStorage
+                firebaseStorage,
+                roomDBModule,
+                mediaItemModule
             )
         }
     }

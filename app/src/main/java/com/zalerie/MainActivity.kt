@@ -18,6 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import coil3.util.CoilUtils
 import com.zalerie.ui.bottomNavigation.NavHostController
 import com.zalerie.ui.loadingBar.LoadingBar
 import com.zalerie.ui.snackbar.CustomSnackbar

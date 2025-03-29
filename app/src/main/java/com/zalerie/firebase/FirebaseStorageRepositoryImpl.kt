@@ -2,10 +2,12 @@ package com.zalerie.firebase
 
 import android.content.Context
 import android.net.Uri
+import android.provider.OpenableColumns
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.zalerie.models.MediaFile
+import com.zalerie.models.MediaItems
+import com.zalerie.viewmodel.extractThumbnail
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -25,42 +27,53 @@ class FirebaseStorageRepositoryImpl(
         context: Context,
         userId: String,
         files: List<Uri>,
-        onResult: (Boolean, List<MediaFile>) -> Unit
+        onResult: (Boolean, List<MediaItems>) -> Unit
     ) {
-        //val mediaList = mutableListOf<MediaFile>()
         val scope = CoroutineScope(Dispatchers.IO)
 
         val deferredUploads = files.map { uri ->
             scope.async {
-                val fileType = getFileType(context = context, uri = uri)
-                val fileName = "${System.currentTimeMillis()}_${fileType}"
-                val storageRef = firebaseStorage.reference
-                    .child("users/$userId/$fileName")
+                val fileCategory = getFileType(context, uri)
+                val timestamp = System.currentTimeMillis()
+                val fileID = "${timestamp}_$fileCategory"
+                val originalFileName = getFileName(context = context, uri = uri)
+                println("File Name - $originalFileName")
+
+                val folder = if (fileCategory.startsWith("image")) "images" else "videos"
+                val storageRef =
+                    firebaseStorage.reference.child("users/$userId/$folder/$fileID")
 
                 try {
-                    val uploadTask = storageRef.putFile(uri).await()
+                    val thumbnailUrl = if (fileCategory.startsWith("video")) {
+                        uploadVideoThumbnail(context, firebaseStorage, userId, fileID, uri)
+                    } else {
+                        null
+                    }
+
+                    storageRef.putFile(uri).await()
                     val downloadUrl = storageRef.downloadUrl.await().toString()
 
                     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                     val dateTime = sdf.format(Date()).split(" ")
 
-                    val mediaFile = MediaFile(
-                        id = fileName,
-                        name = fileName,
-                        fileType = fileType,
+                    val mediaFile = MediaItems(
+                        id = fileID,
+                        name = originalFileName ?: "unknown",
+                        mediaCategoryType = fileCategory,
                         date = dateTime[0],
                         time = dateTime[1],
-                        downloadUrl = downloadUrl
+                        downloadUrl = downloadUrl,
+                        thumbnailUrl = thumbnailUrl,
+                        timestamp = timestamp
                     )
-
                     firestore.collection("users").document(userId)
-                        .collection("uploads")
-                        .document(fileName)
+                        .collection("uploads").document(fileID)
                         .set(mediaFile)
                         .await()
 
                     mediaFile
                 } catch (e: Exception) {
+                    e.printStackTrace()
                     null
                 }
             }
@@ -73,13 +86,46 @@ class FirebaseStorageRepositoryImpl(
     }
 }
 
+suspend fun uploadVideoThumbnail(
+    context: Context,
+    firebaseStorage: FirebaseStorage,
+    userId: String,
+    fileName: String,
+    uri: Uri
+): String? {
+    val thumbnailData = extractThumbnail(context, uri) ?: return null
+    val thumbnailRef = firebaseStorage.reference
+        .child("users/$userId/videos/thumbnails/$fileName.jpg")
+    return try {
+        thumbnailRef.putBytes(thumbnailData).await()
+        thumbnailRef.downloadUrl.await().toString()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+}
+
 fun getFileType(context: Context, uri: Uri): String {
     val contentResolver = context.contentResolver
     val type = contentResolver.getType(uri)
-
     return when {
-        type?.startsWith("image") == true -> "image"
-        type?.startsWith("video") == true -> "video"
+        type?.startsWith("image") == true -> "images"
+        type?.startsWith("video") == true -> "videos"
         else -> "unknown"
     }
+}
+
+fun getFileName(context: Context, uri: Uri): String? {
+    var fileName: String? = null
+    val cursor = context.contentResolver.query(
+        uri, null, null, null, null
+    )
+    cursor?.use {
+        val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        if (nameIndex != -1) {
+            it.moveToFirst()
+            fileName = it.getString(nameIndex)
+        }
+    }
+    return fileName
 }
