@@ -16,6 +16,4 @@ sealed class Screens {
     data object UserDetailScreen: Screens()
     @Serializable
     data object HomeScreen: Screens()
-    @Serializable
-    data object ProfileScreen: Screens()
 }

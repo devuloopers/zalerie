@@ -14,5 +14,6 @@ data class MediaItems(
     val time: String = "",
     val downloadUrl: String = "",
     val timestamp: Long = 0L,
-    val thumbnailUrl: String? = null
+    val thumbnailUrl: String? = null,
+    val fileSize: String = ""
 )

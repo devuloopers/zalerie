@@ -1,4 +1,4 @@
-package com.zalerie.firebase
+package com.zalerie.repository.firebase
 
 import android.content.Context
 import android.net.Uri
@@ -52,6 +52,7 @@ class FirebaseStorageRepositoryImpl(
 
                     storageRef.putFile(uri).await()
                     val downloadUrl = storageRef.downloadUrl.await().toString()
+                    val fileSize = storageRef.metadata.await().sizeBytes
 
                     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                     val dateTime = sdf.format(Date()).split(" ")
@@ -64,7 +65,8 @@ class FirebaseStorageRepositoryImpl(
                         time = dateTime[1],
                         downloadUrl = downloadUrl,
                         thumbnailUrl = thumbnailUrl,
-                        timestamp = timestamp
+                        timestamp = timestamp,
+                        fileSize = bytesToMB(fileSize)
                     )
                     firestore.collection("users").document(userId)
                         .collection("uploads").document(fileID)
@@ -128,4 +130,9 @@ fun getFileName(context: Context, uri: Uri): String? {
         }
     }
     return fileName
+}
+
+fun bytesToMB(bytes: Long): String {
+    val mb = bytes / (1024.0 * 1024.0) // Convert bytes to MB
+    return "%.2f".format(mb) // Format to 2 decimal places
 }

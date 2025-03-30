@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.zalerie.ui.bottomNavigation.navigateAndClear
+import com.zalerie.navHost.navigateAndClear
 import com.zalerie.ui.screens.Screens
 import com.zalerie.viewmodel.AuthViewModel
 import com.zalerie.viewmodel.UserViewModel

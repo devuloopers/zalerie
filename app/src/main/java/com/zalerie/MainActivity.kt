@@ -17,9 +17,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.zIndex
 import androidx.navigation.compose.rememberNavController
-import coil3.util.CoilUtils
-import com.zalerie.ui.bottomNavigation.NavHostController
+import com.zalerie.navHost.NavHostController
+import com.zalerie.ui.dialog.DialogWindow
 import com.zalerie.ui.loadingBar.LoadingBar
 import com.zalerie.ui.snackbar.CustomSnackbar
 import org.koin.compose.koinInject
@@ -33,7 +34,8 @@ class MainActivity : ComponentActivity() {
             //val loadingBarState: LoadingBarState = koinInject()
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
-                bottomBar = {},
+                bottomBar = {
+                },
                 snackbarHost = {
                     SnackbarHost(hostState = snackbarHostState) {
                         CustomSnackbar(snackbarData = it)
@@ -64,6 +66,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
             LoadingBar()
+            DialogWindow(modifier = Modifier.zIndex(10f),  navHostController = navHostController)
         }
     }
 }

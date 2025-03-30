@@ -1,5 +1,6 @@
 package com.zalerie.ui.components
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -41,5 +42,36 @@ fun CustomButton1(
             fontSize = fontSize,
             letterSpacing = letterSpacing
         )
+    }
+}
+
+@Composable
+fun CustomButton2(
+    modifier: Modifier = Modifier,
+    buttonText: String = "LOGIN",
+    fontSize: TextUnit = 15.sp,
+    innerPaddingValues: PaddingValues = PaddingValues(),
+    letterSpacing: TextUnit = TextUnit.Unspecified,
+    animateChangeBorderWidth: Dp = 1.dp,
+    onClick: () -> Unit
+) {
+    OutlinedButton(
+        modifier = modifier,
+        shape = RoundedCornerShape(10.dp),
+        border = BorderStroke(width = animateChangeBorderWidth, color = Color.White),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = if (buttonText.contains("failed")) Color.Red else Color.Transparent
+        ),
+        onClick = onClick
+    ) {
+        Crossfade(targetState = buttonText, label = "TextAnimation") { animatedText ->
+            Text(
+                modifier = Modifier.padding(innerPaddingValues),
+                text = animatedText,
+                color = Color.White,
+                fontSize = fontSize,
+                letterSpacing = letterSpacing
+            )
+        }
     }
 }

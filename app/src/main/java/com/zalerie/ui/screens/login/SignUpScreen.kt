@@ -16,17 +16,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.zalerie.ui.bottomNavigation.navigateAndClearAll
+import com.zalerie.navHost.navigateAndClearAll
 import com.zalerie.ui.components.CustomButton1
 import com.zalerie.ui.loadingBar.LoadingBarState
 import com.zalerie.ui.screens.Screens
@@ -45,9 +46,9 @@ fun SignUpScreen(
     viewModel: AuthViewModel = koinViewModel(),
     authViewModel: AuthViewModel = koinViewModel()
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var confirmPassword by rememberSaveable { mutableStateOf("") }
     val errorMessageFlow = viewModel.errorMessage
     val snackbarState: SnackbarState = koinInject()
     val scope = rememberCoroutineScope()
@@ -57,6 +58,9 @@ fun SignUpScreen(
     LaunchedEffect(Unit) {
         errorMessageFlow.collectLatest { message ->
             snackbarState.showMessage(message)
+            if (loadingBarState.isLoading) {
+                loadingBarState.hideLoading()
+            }
         }
     }
     LaunchedEffect(user) {
@@ -99,13 +103,15 @@ fun SignUpScreen(
             Spacer(modifier = Modifier.height(30.dp))
             LoginScreenTextField(
                 placeholder = "Set Password",
-                textValue = password
+                textValue = password,
+                visualTransformation = PasswordVisualTransformation()
             ) { password = it }
 
             Spacer(modifier = Modifier.height(30.dp))
             LoginScreenTextField(
                 placeholder = "Confirm Password",
-                textValue = confirmPassword
+                textValue = confirmPassword,
+                visualTransformation = PasswordVisualTransformation()
             ) { confirmPassword = it }
 
             Spacer(modifier = Modifier.height(100.dp))
@@ -129,6 +135,8 @@ fun SignUpScreen(
                     scope.launch {
                         viewModel.signUp(email = email, password = password)
                     }
+                } else {
+                    snackbarState.showMessage("Password and confirm password don't match")
                 }
             }
         }

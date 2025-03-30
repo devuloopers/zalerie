@@ -21,4 +21,7 @@ interface MediaDao {
 
     @Query("DELETE FROM media_file WHERE id IN (:ids)")
     suspend fun deleteMedia(ids: List<String>)
+
+    @Query("DELETE FROM media_file")
+    suspend fun clearAllMedia()
 }

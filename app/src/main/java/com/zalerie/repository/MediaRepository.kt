@@ -118,4 +118,10 @@ class MediaRepository(
             }
         }
     }
+
+    suspend fun logoutAction() {
+        mediaDao.clearAllMedia()
+        firebaseAuth.signOut()
+        println("Cleared all media from Room DB and logged out from Firebase")
+    }
 }

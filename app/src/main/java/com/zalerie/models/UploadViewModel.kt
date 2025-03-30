@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zalerie.firebase.FirebaseStorageRepository
+import com.zalerie.repository.firebase.FirebaseStorageRepository
 import kotlinx.coroutines.launch
 
 class UploadViewModel(private val repository: FirebaseStorageRepository) : ViewModel() {

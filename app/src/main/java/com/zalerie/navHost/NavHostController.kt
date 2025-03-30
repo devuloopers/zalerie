@@ -1,4 +1,4 @@
-package com.zalerie.ui.bottomNavigation
+package com.zalerie.navHost
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
@@ -10,7 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.zalerie.ui.screens.Screens
-import com.zalerie.ui.screens.home.HomeScreen
+import com.zalerie.ui.screens.home.InitialHomeScreenSetup
 import com.zalerie.ui.screens.login.AuthScreen
 import com.zalerie.ui.screens.login.LoginScreen
 import com.zalerie.ui.screens.login.SignUpScreen
@@ -65,10 +65,7 @@ fun NavHostController(modifier: Modifier, navHostController: NavHostController) 
             UserDetails(modifier = Modifier, navHostController = navHostController)
         }
         composable<Screens.HomeScreen> {
-            HomeScreen(modifier = Modifier, navHostController = navHostController)
-        }
-        composable<Screens.ProfileScreen> {
-
+            InitialHomeScreenSetup(modifier = Modifier, navHostController = navHostController)
         }
     }
 }
@@ -88,6 +85,7 @@ fun NavController.navigateAndClear(route: Screens, popUpScreen: Screens) {
         popUpTo(popUpScreen) { inclusive = true }
     }
 }
+
 fun NavController.navigateAndClearAll(route: Screens) {
     navigate(route) {
         popUpTo(0) { inclusive = true }

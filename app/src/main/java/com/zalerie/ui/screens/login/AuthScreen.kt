@@ -16,28 +16,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.zalerie.viewmodel.AuthViewModel
-import com.zalerie.ui.bottomNavigation.saveableNavigate
+import com.zalerie.navHost.saveableNavigate
 import com.zalerie.ui.components.CustomButton1
 import com.zalerie.ui.components.TextFieldEndTrailingIcon
 import com.zalerie.ui.screens.Screens
-import com.zalerie.ui.snackbar.SnackbarState
-import org.koin.androidx.compose.koinViewModel
-import org.koin.compose.koinInject
 
 @Composable
 fun AuthScreen(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController = rememberNavController(),
-    viewModel: AuthViewModel = koinViewModel()
+    navHostController: NavHostController = rememberNavController()
 ) {
-    val errorMessageFlow = viewModel.errorMessage
-    val snackbarState: SnackbarState = koinInject()
     Column(
         modifier = modifier
             .wrapContentSize()
@@ -90,6 +84,7 @@ fun LoginScreenTextField(
     modifier: Modifier = Modifier,
     placeholder: String = "",
     textValue: String = "",
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     value: (String) -> Unit
 ) {
     TextFieldEndTrailingIcon(
@@ -98,6 +93,7 @@ fun LoginScreenTextField(
         textValue = textValue,
         cornerRadius = 10.dp,
         maxLines = 1,
+        visualTransformation = visualTransformation,
         colors = OutlinedTextFieldDefaults.colors(
             focusedTextColor = Color.White,
             unfocusedTextColor = Color.White,

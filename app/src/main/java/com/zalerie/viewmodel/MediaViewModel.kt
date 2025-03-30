@@ -44,6 +44,12 @@ class MediaViewModel(private val repository: MediaRepository) : ViewModel() {
             repository.deleteMedia(selectedMedia)
         }
     }
+
+    fun logout() {
+        viewModelScope.launch {
+            repository.logoutAction()
+        }
+    }
 }
 
 fun extractThumbnail(context: Context, videoUri: Uri): ByteArray? {

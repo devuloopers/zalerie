@@ -2,9 +2,7 @@ package com.zalerie.ui.snackbar
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.SnackbarResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -28,7 +26,7 @@ class SnackbarState(
                 duration = duration
             )
 
-            if (result == androidx.compose.material3.SnackbarResult.Dismissed) {
+            if (result == SnackbarResult.Dismissed) {
                 onDismissed?.invoke()
             }
         }

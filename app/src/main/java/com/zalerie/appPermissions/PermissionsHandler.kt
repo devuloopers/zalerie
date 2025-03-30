@@ -5,7 +5,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource.Companion.SideEffect
 import androidx.compose.ui.platform.LocalContext
 import com.zalerie.viewmodel.PermissionsViewModel
 import kotlinx.coroutines.delay
@@ -36,7 +38,7 @@ fun PermissionsHandler(
         }
     }
 
-    LaunchedEffect(Unit) {
+    SideEffect {
         if (!PermissionUtils.hasPermissions(context)) {
             permissionLauncher.launch(PermissionUtils.getRequiredPermissions())
         } else {

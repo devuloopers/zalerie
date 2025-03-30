@@ -1,4 +1,4 @@
-package com.zalerie.firebase
+package com.zalerie.repository.firebase
 
 import android.content.Context
 import android.net.Uri

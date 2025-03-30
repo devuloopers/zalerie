@@ -2,6 +2,7 @@ package com.zalerie.di
 
 import android.app.Application
 import com.zalerie.appPermissions.permissionModule
+import com.zalerie.ui.dialog.dialogModule
 import com.zalerie.ui.loadingBar.loadingBarModule
 import com.zalerie.ui.snackbar.snackbarModule
 import org.koin.android.ext.koin.androidContext
@@ -20,7 +21,8 @@ class RootDI : Application() {
                 loadingBarModule,
                 firebaseStorage,
                 roomDBModule,
-                mediaItemModule
+                mediaItemModule,
+                dialogModule
             )
         }
     }

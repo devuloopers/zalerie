@@ -3,8 +3,8 @@ package com.zalerie.di
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.zalerie.firebase.FirebaseStorageRepository
-import com.zalerie.firebase.FirebaseStorageRepositoryImpl
+import com.zalerie.repository.firebase.FirebaseStorageRepository
+import com.zalerie.repository.firebase.FirebaseStorageRepositoryImpl
 import com.zalerie.models.UploadViewModel
 import com.zalerie.repository.AuthRepository
 import com.zalerie.repository.UserRepository

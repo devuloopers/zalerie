@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -25,6 +26,7 @@ fun TextFieldEndTrailingIcon(
     textValue: String = "",
     cornerRadius: Dp = 8.dp,
     maxLines: Int = Int.MAX_VALUE,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     colors: TextFieldColors = TextFieldDefaults.colors(),
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     icon: @Composable (() -> Unit) = {},
@@ -35,6 +37,7 @@ fun TextFieldEndTrailingIcon(
         onValueChange = { newText ->
             onValueChange(newText)
         },
+        visualTransformation = visualTransformation,
         placeholder = {
             Text(
                 text = if (textValue.isEmpty()) placeholder else "",
